@@ -3,7 +3,8 @@ import { Header } from './components/header'; // Your Header component
 import { HomeScreen } from './screens/HomeScreen'; // Home component
 import { SignInScreen } from './screens/SignInScreen'; // SignIn component
 import { RegistrationScreen } from './screens/RegistrationScreen';
-import { Footer } from "./components/footer"; // Footer component
+import { Footer } from "./components/footer";
+import {Fortheboys} from "./components/fortheboys.tsx"; // Footer component
 
 const App = () => {
     return (
@@ -15,6 +16,7 @@ const App = () => {
                         <Route path="/" element={<HomeScreen />} />
                         <Route path="/signin" element={<SignInScreen />} />
                         <Route path="/register" element={<RegistrationScreen />} />
+                        <Route path = "/contact" element={<Fortheboys/>} />
                     </Routes>
                 </main>
                 <Footer />
