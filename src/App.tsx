@@ -1,59 +1,26 @@
-import {Header} from "./components/header.tsx";
-import {HomeScreen} from "./screens/HomeScreen.tsx";
-import {Footer} from "./components/footer.tsx";
-import {SignInScreen} from "./screens/SignInScreen.tsx";
-import {RegistrationScreen} from "./screens/RegistrationScreen.tsx";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Header } from './components/header'; // Your Header component
+import { HomeScreen } from './screens/HomeScreen'; // Home component
+import { SignInScreen } from './screens/SignInScreen'; // SignIn component
+import { RegistrationScreen } from './screens/RegistrationScreen';
+import { Footer } from "./components/footer"; // Footer component
 
-import {
-    createBrowserRouter,
-    RouterProvider,
-} from "react-router-dom";
-import {SplitScreen} from "./screens/SplitScreen.tsx";
-
-interface Screen {
-    name: string;
-    component: never;
-}
-
-function App() {
-
-    const router = createBrowserRouter([
-        {
-            path: "/",
-            element: <HomeScreen/>
-        },
-        {
-            path: "/sign-in",
-            element: <SignInScreen/>
-        },
-        {
-            path: "/register",
-            element: <RegistrationScreen/>
-        },
-        {
-            path: "/connections",
-            element: <SplitScreen/>
-        }
-    ])
-
-    const hideLinks = () => {
-    //     if on sign in screen or register return true
-        if (window.location.href.includes("sign-in") || window.location.href.includes("register")) {
-            return true
-        }
-        return false
-    }
-
+const App = () => {
     return (
-        <div className="min-h-screen flex flex-col">
-            <Header hideLinks={hideLinks()}/>
-            <main className="flex-grow">
-                <RouterProvider router={router}/>
-            </main>
-            <Footer/>
-        </div>
-
+        <Router>
+            <div className="flex flex-col min-h-screen"> {/* Use flex and min-h-screen */}
+                <Header />
+                <main className="flex-grow"> {/* This takes the remaining space */}
+                    <Routes>
+                        <Route path="/" element={<HomeScreen />} />
+                        <Route path="/signin" element={<SignInScreen />} />
+                        <Route path="/register" element={<RegistrationScreen />} />
+                    </Routes>
+                </main>
+                <Footer />
+            </div>
+        </Router>
     );
-}
+};
 
 export default App;
