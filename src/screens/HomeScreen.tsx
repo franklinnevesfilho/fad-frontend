@@ -7,8 +7,16 @@ export function HomeScreen(){
             </section>
 
             <section id="about" className="my-8">
-                <h2 className="text-3xl font-semibold mb-4">About Us</h2>
-                <p>Information about the company or website.</p>
+                <div className="max-w-7xl mx-auto">
+                    <h2 className="text-3xl font-semibold mb-4 ">About Us</h2>
+                    <p>Empowering immigrants seeking asylum by leveraging
+                        generative AI to provide personalized, accessible
+                        guidance on obtaining legal entry into the United States
+                        through Green Card pathways, fostering a clearer path to safety,
+                        security, and opportunity.
+                    </p>
+                </div>
+
             </section>
 
             <section id="services" className="my-8">
