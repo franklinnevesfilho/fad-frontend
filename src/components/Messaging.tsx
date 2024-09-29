@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { sendMsgToOpenAI, useChatHistory } from "../../openAI.ts";
+// import { sendMsgToOpenAI, useChatHistory } from "../../openAI.ts";
 
 export function Messaging() {
     const location = useLocation();
     const { message } = location.state || { message: '' }; // Retrieve the passed message
 
-    const [chatHistory, setChatHistory] = useChatHistory();
+    // const [chatHistory, setChatHistory] = useChatHistory();
     const [messages, setMessages] = useState<{ sender: string; text: string }[]>([
         { sender: 'You', text: message }, // Initial message from the current user
     ]);
@@ -17,30 +17,30 @@ export function Messaging() {
 
     // Handle sending messages
     const handleSendMessage = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (inputMessage.trim()) {
-            setMessages((prev) => [{ sender: currentUser, text: inputMessage }, ...prev]);
-            const response = await sendMsgToOpenAI(inputMessage, chatHistory);
-            if (response) {
-                setMessages((prev) => [{ sender: "gpt", text: response.message }, ...prev]);
-                if (response.action === "CONFIRMED") {
-                    console.log("Finished:", response.userQuery);
-                }
-            }
-            setInputMessage(''); // Clear input field
-        }
+        // e.preventDefault();
+        // if (inputMessage.trim()) {
+        //     setMessages((prev) => [{ sender: currentUser, text: inputMessage }, ...prev]);
+        //     const response = await sendMsgToOpenAI(inputMessage, chatHistory);
+        //     if (response) {
+        //         setMessages((prev) => [{ sender: "gpt", text: response.message }, ...prev]);
+        //         if (response.action === "CONFIRMED") {
+        //             console.log("Finished:", response.userQuery);
+        //         }
+        //     }
+        //     setInputMessage(''); // Clear input field
+        // }
     };
 
     // Log the message from the location state
     useEffect(() => {
-        if (message) {
-            sendMsgToOpenAI(message, chatHistory).then(response => {
-                if (response) {
-                    setMessages((prev) => [{ sender: "gpt", text: response.message }, ...prev]);
-                }
-            });
-        }
-    }, [message, chatHistory]);
+        // if (message) {
+        //     sendMsgToOpenAI(message, chatHistory).then(response => {
+        //         if (response) {
+        //             setMessages((prev) => [{ sender: "gpt", text: response.message }, ...prev]);
+        //         }
+        //     });
+        // }
+    }, []);
 
     const MessageBubble = ({ sender, text }: { sender: string; text: string }) => {
         return (
