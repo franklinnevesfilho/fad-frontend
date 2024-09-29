@@ -14,7 +14,7 @@ export interface LawyerCard {
     email: string
 }
 
-export const AboutUs = ({ imageSrc, profession, language, specialization, Firstname, Lastname, phoneNumber, email }: LawyerCard) => {
+export const Lawyerview = ({ imageSrc, profession, language, specialization, Firstname, Lastname, phoneNumber, email }: LawyerCard) => {
     return (
         <div className='flex flex-col justify-between w-full rounded-lg shadow-lg bg-primary/15 dark:bg-foreground/50 h-[300px] '>
             <div className='bg-primary flex justify-center relative h-[115px] rounded-tl-lg rounded-tr-lg'>
