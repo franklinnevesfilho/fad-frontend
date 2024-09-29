@@ -3,7 +3,7 @@ import { MoreInfo } from '../components/MoreInfo';   // imported from their resp
 
 export function ConnectedScreen() {
     return (
-        <div className="flex w-full h-[100%] p-3">
+        <div className="flex w-full min-h-[83vh] p-3">
             {/*MoreInfo Component - 60% width*/}
             <div className="w-4/6 bg-white">
                 <MoreInfo />

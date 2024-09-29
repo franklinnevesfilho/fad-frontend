@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import {sendMsgToOpenAI} from "../../openAI.ts";
 
 export function Messaging() {
     const location = useLocation();
@@ -7,7 +8,7 @@ export function Messaging() {
 
     // State to store messages
     const [messages, setMessages] = useState<{ sender: string; text: string }[]>([
-        { sender: 'Friend', text: message }, // Initial message from the current user
+        { sender: 'You', text: message }, // Initial message from the current user
     ]);
     const [inputMessage, setInputMessage] = useState('');
 
@@ -39,8 +40,15 @@ export function Messaging() {
 
     // Log the message from the location state
     useEffect(() => {
-        console.log(message);
-    }, [message]);
+        sendMsgToOpenAI(message).then((r)=>{
+            if (r){
+                setMessages([{sender:"gpt", text:r}, ...messages])
+                console.log("response",r)
+            }else{
+                console.log("nothing")
+            }
+        })
+    }, []);
 
     return (
         <div className="h-full w-full p-4 bg-gray-100 flex flex-col justify-between">
