@@ -14,13 +14,13 @@ const lawyer: LawyerCard[] = [
         email: 'thatviet@viet.com',
     },
 
-    ]
+]
 export function MoreInfo() {
     return (
         <div className="container mx-auto w-full min-h-[80vh] flex items-center justify-center">
             <div className={`flex flex-row flex-wrap justify-center overflow-y-auto max-h-[80vh]`}>
                 {lawyer.map((member, index) => (
-                    <div className ={'w-1/3 p-2'}>
+                    <div className={'p-2'}>
                         <Lawyerview key = {index}
                             profession={member.profession}
                             Firstname={member.Firstname}
@@ -37,4 +37,3 @@ export function MoreInfo() {
         </div>
     );
 }
-
