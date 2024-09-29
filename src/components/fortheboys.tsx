@@ -1,16 +1,16 @@
 import {AboutUs, IAboutUsCard} from "./aboutUs.tsx";
-
+import FelixPic from '../assets/images/felixpic.jpg';
 
 export const Fortheboys = () => {
     const teamMembers: IAboutUsCard[] = [
 
         {
             userFirstName: 'Felix',
-            userLastName: 'Arbucias ',
+            userLastName: 'Arbucias',
             userSubtext: '',
-            userGitHub: '',
-            userLinkedIn: '',
-            imageSrc: '',
+            userGitHub: 'https://github.com/felixArbucias',
+            userLinkedIn: 'https://www.linkedin.com/in/felixarbucias/',
+            imageSrc: FelixPic,
         },
         {
             userFirstName: 'Franklin',
@@ -21,7 +21,7 @@ export const Fortheboys = () => {
             imageSrc: '',
         },
         {
-            userFirstName: '',
+            userFirstName: 'Anthony',
             userLastName: '',
             userSubtext: '',
             userGitHub: '',
@@ -29,7 +29,7 @@ export const Fortheboys = () => {
             imageSrc: '',
         },
         {
-            userFirstName: '',
+            userFirstName: 'Thanh',
             userLastName: '',
             userSubtext: '',
             userGitHub: '',
