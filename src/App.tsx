@@ -11,15 +11,16 @@ const App = () => {
         <Router>
             <div className="flex flex-col min-h-screen"> {/* Use flex and min-h-screen */}
                 <Header />
-                <main className="flex-grow"> {/* This takes the remaining space */}
+                <main
+                    className="flex flex-grow items-center justify-center"> {/* This takes the remaining space */}
                     <Routes>
-                        <Route path="/" element={<HomeScreen />} />
-                        <Route path="/signin" element={<SignInScreen />} />
-                        <Route path="/register" element={<RegistrationScreen />} />
-                        <Route path = "/contact" element={<Fortheboys/>} />
+                        <Route path="/" element={<HomeScreen/>}/>
+                        <Route path="/signin" element={<SignInScreen/>}/>
+                        <Route path="/register" element={<RegistrationScreen/>}/>
+                        <Route path="/contact" element={<Fortheboys/>}/>
                     </Routes>
                 </main>
-                <Footer />
+                <Footer/>
             </div>
         </Router>
     );
