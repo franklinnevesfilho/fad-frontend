@@ -9,32 +9,32 @@ const lawyer: LawyerCard[] = [
         language: 'Vietnamese',
         specialization: 'Lawyer again',
         Firstname: 'Some viet',
-        Lastname: 'a viet lastname',
+        Lastname: 'avietn',
         phoneNumber: '954-305-230',
         email: 'thatviet@viet.com',
     },
+
     ]
 export function MoreInfo() {
     return (
-        <div className={'container mx-auto mt-10'}>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
+        <div className="container mx-auto w-full min-h-[80vh] flex items-center justify-center">
+            <div className={`flex flex-row flex-wrap justify-center overflow-y-auto max-h-[80vh]`}>
                 {lawyer.map((member, index) => (
-                    <Lawyerview
-                        key={index}
-                        profession={member.profession}
-                        Firstname={member.Firstname}
-                        Lastname={member.Lastname}
-                        language={member.language}
-                        specialization={member.specialization}
-                        phoneNumber={member.phoneNumber}
-                        email={member.email}
-                        imageSrc={member.imageSrc}
-
-                    />
+                    <div className ={'w-1/3 p-2'}>
+                        <Lawyerview key = {index}
+                            profession={member.profession}
+                            Firstname={member.Firstname}
+                            Lastname={member.Lastname}
+                            language={member.language}
+                            specialization={member.specialization}
+                            phoneNumber={member.phoneNumber}
+                            email={member.email}
+                            imageSrc={member.imageSrc}
+                        />
+                    </div>
                 ))}
             </div>
         </div>
-
     );
 }
 

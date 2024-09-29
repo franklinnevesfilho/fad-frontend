@@ -13,6 +13,10 @@ export interface LawyerCard {
     phoneNumber: string
     email: string
 }
+const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    alert(`${text} copied to clipboard!`);
+};
 
 export const Lawyerview = ({ imageSrc, profession, language, specialization, Firstname, Lastname, phoneNumber, email }: LawyerCard) => {
     return (
@@ -32,12 +36,14 @@ export const Lawyerview = ({ imageSrc, profession, language, specialization, Fir
                     <span className='text-sm text-foreground/60'>{language}</span>
                 </div>
                 <div className='flex justify-evenly'>
-                <a href={phoneNumber} target='_blank'>
-                        <FaPhone size={42} color='#0077b5' />
-                    </a>
-                    <a href={email} target='_blank'>
-                        <MdEmail size={42} color='#0077b5' />
-                    </a>
+                    <FaPhone size={20}
+                        onClick={() => copyToClipboard(phoneNumber)}
+                        style={{ cursor: 'pointer', marginRight: '8px' }}
+                    />
+                    <MdEmail size={24}
+                        onClick={() => copyToClipboard(email)}
+                        style={{ cursor: 'pointer', marginRight: '8px' }}
+                    />
                 </div>
             </div>
         </div>
