@@ -1,3 +1,49 @@
+# FAD: Empowering Your Path to Citizenship (SH-24)
+
+### Introduction:
+
+FAD is an innovative educational web application designed to assist individuals navigating the complex U.S. residency process. Our platform aims to connect users with the right resources and contacts to facilitate their journey toward citizenship. By leveraging AI technologies and immersive educational tools, we strive to create an accessible and supportive community for aspiring citizens.
+
+ ### Project Goals:
+
+Empower Users: Provide personalized guidance and resources to individuals seeking assistance in their residency journey.
+
+Community Connection: Foster a supportive network that connects users with legal experts, consultants, and other individuals who can provide relevant support.
+
+Intelligent Assistance: Utilize AI-driven features to curate personalized lists of potential contacts and resources tailored to individual needs.
+Challenges Addressed
+
+Complexity of the Residency Process: The U.S. immigration system can be overwhelming, with numerous steps and requirements. Our platform simplifies this process by offering clear pathways and resources.
+
+Resource Accessibility: Many individuals struggle to find credible resources and contacts. Our intelligent assistant curates a list of recommended professionals based on user input, ensuring easy access to reliable information.
+
+### Key Features:
+
+AI-Powered Intelligent Assistant: A sophisticated assistant that analyzes user needs and preferences to generate a curated list of contacts, including immigration lawyers, consultants, and community organizations.
+
+Resource Database: A comprehensive repository of educational materials, guides, and articles related to the residency process, available in multiple languages for inclusivity.
+
+User-Centric Design: An intuitive interface that ensures easy navigation and accessibility for all users, regardless of technical proficiency.
+
+### Technologies Stack:
+
+Front-end: HTML, CSS, JavaScript (React)
+Back-end: Python (Flask), Firestore for database management
+AI Integration: OpenAI API for intelligent assistance and resource curation
+Deployment: Cloud services for scalability and accessibility
+
+## Concluding Notes:
+
+FAD is dedicated to promoting social good by empowering individuals in their pursuit of citizenship. Our platform combines advanced AI technologies with a supportive community to ensure users receive the guidance and resources they need. Join us in transforming the immigration experience for countless individuals and families across the U.S.
+
+
+##### Great efforts from the FAD dev team were made this weekedn and we are proud of the work we were able to accomplish. Future additions will be made to bring this dream alive!!!! So stay tuned :) 
+
+
+
+
+# Technical Notes
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
