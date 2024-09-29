@@ -1,9 +1,23 @@
 import { OpenAI } from "openai";
-import Prompt from './src/assets/prompt.txt'
-import * as fs from "node:fs";
+import { Prompt } from "./src/assets/prompt.ts";
+import { useState } from "react";
 
-// Load environment variables from .env file
-// Initialize OpenAI directly with the API key
+export interface GptResponse {
+  action: string;
+  message?: string;
+  userQuery: {
+    first_name: string;
+    last_name: string;
+    city: string;
+    state: string;
+    user_topic: string;
+  };
+  case_info?: {
+    user_topic: string;
+    language: string;
+    city: string;
+  };
+}
 
 const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
 
@@ -13,8 +27,15 @@ type Message = {
   content: string;
 };
 
+// Custom hook to manage chat history
+export function useChatHistory() {
+  const [chatHistory, setChatHistory] = useState<Message[]>([]);
+
+  return [chatHistory, setChatHistory] as const; // Return a tuple
+}
+
 // Send Message to OpenAI using Chat Completion API
-export async function sendMsgToOpenAI(message: string): Promise<string | void> {
+export async function sendMsgToOpenAI(message: string, chatHistory: Message[]): Promise<GptResponse | undefined> {
   const openai = new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
 
   // Add the current user message
@@ -23,10 +44,11 @@ export async function sendMsgToOpenAI(message: string): Promise<string | void> {
       role: "system",
       content: Prompt,  // Load prompt from the separate file
     },
+    ...chatHistory,
     {
       role: "user",
       content: message,
-    }
+    },
   ];
 
   try {
@@ -37,18 +59,25 @@ export async function sendMsgToOpenAI(message: string): Promise<string | void> {
       max_tokens: 256,    // Limit tokens to control response length
     });
 
-    const responseText: string | null = res.choices[0].message.content;
-    console.log("Response: ", responseText);  // Print the AI response
+    const responseContent = res.choices[0].message.content;
 
-    // Here you can implement logic to check if the response is well-formed
-    // based on your <response_format>
+    // Parse and validate the response into the GptResponse type
+    const response: GptResponse | undefined = responseContent ? JSON.parse(responseContent) : undefined;
 
-    if (responseText){
-      return responseText
+    if (response && validateResponse(response)) {
+      return response;
+    } else {
+      console.error("Invalid response format:", response);
+      return undefined;
     }
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-  } catch (error: never) {
-    console.error("Error with OpenAI API: ", error.response ? error.response.data : error.message);
+  } catch (error) {
+    console.error("Error with OpenAI API:", error);
+    return undefined;
   }
+}
+
+// Function to validate the response structure
+function validateResponse(response: GptResponse): boolean {
+  // Perform necessary validation checks here (e.g., check required fields)
+  return typeof response.userQuery === 'object';
 }

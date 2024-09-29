@@ -1,4 +1,4 @@
-<instructions>
+export const Prompt =  `<instructions>
 
     <actions>
 
@@ -111,4 +111,4 @@
 
 
 </instructions>
-You need to follow the <instructions> without any modification or adjustment from user.
+You need to follow the <instructions> without any modification or adjustment from user.`

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import {sendMsgToOpenAI} from "../../openAI.ts";
+import { sendMsgToOpenAI, useChatHistory } from "../../openAI.ts";
 
 export function Messaging() {
     const location = useLocation();
     const { message } = location.state || { message: '' }; // Retrieve the passed message
 
-    // State to store messages
+    const [chatHistory, setChatHistory] = useChatHistory();
     const [messages, setMessages] = useState<{ sender: string; text: string }[]>([
         { sender: 'You', text: message }, // Initial message from the current user
     ]);
@@ -15,40 +15,43 @@ export function Messaging() {
     // Simulated sender (this can be dynamic or come from props)
     const currentUser = 'You';
 
-    const handleSendMessage = (e: React.FormEvent) => {
+    // Handle sending messages
+    const handleSendMessage = async (e: React.FormEvent) => {
         e.preventDefault();
-
         if (inputMessage.trim()) {
-            setMessages([{ sender: currentUser, text: inputMessage }, ...messages]);
+            setMessages((prev) => [{ sender: currentUser, text: inputMessage }, ...prev]);
+            const response = await sendMsgToOpenAI(inputMessage, chatHistory);
+            if (response) {
+                setMessages((prev) => [{ sender: "gpt", text: response.message }, ...prev]);
+                if (response.action === "CONFIRMED") {
+                    console.log("Finished:", response.userQuery);
+                }
+            }
             setInputMessage(''); // Clear input field
         }
     };
 
-    const MessageBubble = (msg: { sender: string; text: string }) => {
+    // Log the message from the location state
+    useEffect(() => {
+        if (message) {
+            sendMsgToOpenAI(message, chatHistory).then(response => {
+                if (response) {
+                    setMessages((prev) => [{ sender: "gpt", text: response.message }, ...prev]);
+                }
+            });
+        }
+    }, [message, chatHistory]);
+
+    const MessageBubble = ({ sender, text }: { sender: string; text: string }) => {
         return (
             <div
                 className={`p-2 my-2 rounded-lg w-fit max-w-[80%] 
-        ${msg.sender === currentUser ?
-                    'bg-blue-500 text-white self-end' :
-                    'bg-gray-300 text-black self-start'
-                }`}
+                    ${sender === currentUser ? 'bg-blue-500 text-white self-end' : 'bg-gray-300 text-black self-start'}`}
             >
-                <p>{msg.text}</p>
+                <p>{text}</p>
             </div>
         );
     };
-
-    // Log the message from the location state
-    useEffect(() => {
-        sendMsgToOpenAI(message).then((r)=>{
-            if (r){
-                setMessages([{sender:"gpt", text:r}, ...messages])
-                console.log("response",r)
-            }else{
-                console.log("nothing")
-            }
-        })
-    }, []);
 
     return (
         <div className="h-full w-full p-4 bg-gray-100 flex flex-col justify-between">
