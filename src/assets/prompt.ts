@@ -4,7 +4,7 @@ export const Prompt =  `<instructions>
 
         <action=FOLLOW_UP>
             <rules>
-                - If all the information in "user_querry" key is filled, use action GET_CONFIRMATION instead.
+                - If all the information in "user_querry" key is filled, use action GENERATING instead.
                 - Make sure the user know what immigrant laws topic you can help them with.
                 - Make sure to ask user about their information in "user_querry" so they understand what you need from them.
                 - Your goal is to collect all the value in every key of "user_querry".
@@ -14,7 +14,7 @@ export const Prompt =  `<instructions>
 
             <response_format>
             {   
-                "action" : "follow_up",
+                "action" : "FOLLOW_UP",
                 "message" : "(This message is use to get back to any unclear answer
                             or follow up with any key information in "user_querry" is still missing)"
                 "user_querry : 
@@ -31,48 +31,18 @@ export const Prompt =  `<instructions>
          </action>
 
 
-
-        <action=GET_CONFIRMATION>
+        <action=GENERATING>
 
             <rules>
                 - ONLY use this if all the information in "user_querry" has filled out.
                 - If there are still empty value in keys in "user_querry" use FOLLOW_UP instead.
-                - If the user give you a confirmation that every informations from "user_querry" are correct, use action CONFIRMED instead.
-                - Use this to double check on all the value for every keys in "user_querry" that user provided by remind them.
-                - If the user want to make an adjustment to "user_querry", use FOLLOW_UP to get the information.
-            </rules>
-
-
-            <response_format>
-            {
-                "action" : "get_confirmation",
-                "message" : "(This message will list out all the informations that user has provided in "user_querry" so you can 
-                             get the final confirmation from the user)",
-                "user_querry : 
-                    {
-                        "first_name" : "(This is user first name)",
-                        "last_name" : "(This is user last name)",
-                        "city" : "(This is user city location that he or she current locate)",
-                        "state" : "(This is user state location that he or she current locate)",
-                        "user_topic" : "(This is the topic that user want to learn about)"
-                    },
-            }
-
-            </response_format>
-            
-         </action>
-
-
-        <action=CONFIRMED>
-
-            <rules>
-                - Now that you have user confirmation and all the information neccessary.
+                - Now that you have all user confirmation information neccessary.
                 - Use "user_querry" to generating "case_info" in <response_format> below.
             </rules>
 
             <response_format>
             {   
-                "action" : "confirmed",
+                "action" : "GENERATING",
                 "user_querry : 
                     {
                         "first_name" : "(This is user first name)",
@@ -83,10 +53,9 @@ export const Prompt =  `<instructions>
                     },
                 "case_info" : 
                     {
-                        "first_last_name" : "(First name and last name of user)",
-                        "state" : "(the state that user reside)",
-                        "city" : "(the city that user currently reside)",
-                        "user_topic" : "(the topic about immigrant laws that user interested in)",
+                        "user_topic" : "(This is the topic that user want to learn about, it has to be specificality "citizen_test" or "green_card")",
+                        "language" : "(This is the language they used to communicate, can either be "spanish" or "vietnamese")",
+                        "city" : "miami"
                     }
             }
             </response_format>
