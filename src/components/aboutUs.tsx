@@ -12,6 +12,7 @@ export interface IAboutUsCard {
     imageSrc: string
 }
 
+
 export const AboutUs = ({ userLinkedIn, userGitHub, userFirstName, userLastName, userSubtext, imageSrc }: IAboutUsCard) => {
     return (
         <div className='flex flex-col justify-between w-full rounded-lg shadow-lg bg-primary/15 dark:bg-foreground/50 h-[300px] '>
