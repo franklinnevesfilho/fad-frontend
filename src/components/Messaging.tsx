@@ -18,26 +18,33 @@ export function Messaging() {
 
         if (inputMessage.trim()) {
             // Add the user's message to the message history
-            setMessages((prevMessages) => [
-                { sender: currentUser, text: inputMessage },
-                ...prevMessages,
-            ]);
 
-            // Send message to OpenAI
-            await sendMsg(inputMessage);
-
-            // Clear input field after sending
-            setInputMessage('');
+            const newMsgs = [{sender:"You", text:inputMessage}, ...messages]
+            setMessages(newMsgs)
+            setInputMessage('')
+            await sendMsg(inputMessage, newMsgs)
         }
     };
 
     // Async function to send message to OpenAI
-    const sendMsg = async (msg: string) => {
+    const sendMsg = async (msg: string, curMsgs:  {sender: string; text: string;}[] | undefined) => {
+        const finishedMsg = 'Here is a list of professionals that can help you with your request'
+
         try {
             const response = await sendMsgToOpenAI(msg);
-            if (response && response.message && response.action !== "CONFIRMED") {
+            if (response && response.message && response.action !== "GENERATING") {
                 // Append GPT's response to the message history
-                setMessages([{ sender: 'gpt', text: response.message }, ...messages,]);
+                if (curMsgs){
+                    setMessages([{ sender: 'gpt', text: response.message }, ...curMsgs]);
+                }else{
+                    setMessages([{ sender: 'gpt', text: response.message }, ...messages])
+                }
+            }else if (response?.action === "GENERATING"){
+                if (curMsgs){
+                    setMessages([{ sender: 'gpt', text: finishedMsg }, ...curMsgs]);
+                }else{
+                    setMessages([{ sender: 'gpt', text: finishedMsg}, ...messages])
+                }
             }
         } catch (error) {
             console.error("Error while sending message to OpenAI:", error);
@@ -47,9 +54,9 @@ export function Messaging() {
     useEffect(() => {
         if (message) {
             // Automatically send the initial message from location state
-            sendMsg(message);
+            sendMsg(message, undefined).then()
         }
-    }, [message]);
+    }, []);
 
     // Message bubble component
     const MessageBubble = ({ sender, text }: { sender: string; text: string }) => (

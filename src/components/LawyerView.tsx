@@ -3,7 +3,7 @@ import { MdEmail } from "react-icons/md";
 
 import Avatar from './Avatar.tsx'
 
-export interface LawyerCard {
+export interface Professional {
     imageSrc : string
     profession: string
     language: string
@@ -18,7 +18,7 @@ const copyToClipboard = (text: string) => {
     alert(`${text} copied to clipboard!`);
 };
 
-export const Lawyerview = ({ imageSrc, profession, language, specialization, Firstname, Lastname, phoneNumber, email }: LawyerCard) => {
+export const Lawyerview = ({ imageSrc, profession, language, specialization, Firstname, Lastname, phoneNumber, email }: Professional) => {
     return (
         <div className='flex flex-col justify-between w-full rounded-lg shadow-lg bg-primary/15 dark:bg-foreground/50 h-[300px] '>
             <div className='bg-primary flex justify-center relative h-[115px] rounded-tl-lg rounded-tr-lg'>

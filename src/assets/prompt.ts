@@ -54,7 +54,7 @@ export const Prompt =  `<instructions>
                 "case_info" : 
                     {
                         "user_topic" : "(This is the topic that user want to learn about, it has to be specificality "citizen_test" or "green_card")",
-                        "language" : "(This is the language they used to communicate, can either be "spanish" or "vietnamese")",
+                        "language" : "(This is the language they used to communicate, can either be "spanish", "english" or "vietnamese")",
                         "city" : "miami"
                     }
             }
