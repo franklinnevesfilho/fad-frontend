@@ -19,11 +19,6 @@ export function Header({ hideLinks }: HeaderProps) {
                     <>
                         <ul className="hidden md:flex space-x-6">
                             <li>
-                                <Link to="/services" className="hover:text-gray-400" title="Services">
-                                    Services
-                                </Link>
-                            </li>
-                            <li>
                                 <Link to="/contact" className="hover:text-gray-400" title="Contact">
                                     Contact
                                 </Link>

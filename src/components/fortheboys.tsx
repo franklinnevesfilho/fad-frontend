@@ -1,40 +1,42 @@
 import {AboutUs, IAboutUsCard} from "./aboutUs.tsx";
 import FelixPic from '../assets/images/felixpic.jpg';
-
+import franklinPic from '../assets/images/franklin.jpg';
+import anthonyPic from '../assets/images/anthony.png';
+import dat from '../assets/images/dat.png';
 export const Fortheboys = () => {
     const teamMembers: IAboutUsCard[] = [
 
         {
             userFirstName: 'Felix',
             userLastName: 'Arbucias',
-            userSubtext: '',
+            userSubtext: 'Full-Stack Developer / AI Engineer',
             userGitHub: 'https://github.com/felixArbucias',
             userLinkedIn: 'https://www.linkedin.com/in/felixarbucias/',
             imageSrc: FelixPic,
         },
         {
             userFirstName: 'Franklin',
-            userLastName: '',
-            userSubtext: '',
-            userGitHub: '',
-            userLinkedIn: '',
-            imageSrc: '',
+            userLastName: 'Neves',
+            userSubtext: 'Full-Stack Developer / AI Engineer',
+            userGitHub: 'https://github.com/franklinnevesfilho',
+            userLinkedIn: 'https://www.linkedin.com/in/franklinnevesfilho/',
+            imageSrc: franklinPic,
         },
         {
             userFirstName: 'Anthony',
-            userLastName: '',
-            userSubtext: '',
-            userGitHub: '',
-            userLinkedIn: '',
-            imageSrc: '',
+            userLastName: 'Magdaleno',
+            userSubtext: 'Full-Stack Developer / AI Engineer',
+            userGitHub: 'https://github.com/ajmag',
+            userLinkedIn: 'https://www.linkedin.com/in/anthonyj-magdaleno/',
+            imageSrc: anthonyPic,
         },
         {
             userFirstName: 'Thanh',
-            userLastName: '',
-            userSubtext: '',
-            userGitHub: '',
-            userLinkedIn: '',
-            imageSrc: '',
+            userLastName: 'Do',
+            userSubtext: 'Full-Stack Developer / AI Engineer',
+            userGitHub: 'https://github.com/casualprogram',
+            userLinkedIn: 'https://www.linkedin.com/in/thanhdo03/',
+            imageSrc: dat,
         }
     ]
     return (
