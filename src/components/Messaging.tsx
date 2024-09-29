@@ -1,57 +1,65 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-// import { sendMsgToOpenAI, useChatHistory } from "../../openAI.ts";
+import { sendMsgToOpenAI } from "../../openAI.ts";
 
 export function Messaging() {
     const location = useLocation();
     const { message } = location.state || { message: '' }; // Retrieve the passed message
-
-    // const [chatHistory, setChatHistory] = useChatHistory();
     const [messages, setMessages] = useState<{ sender: string; text: string }[]>([
         { sender: 'You', text: message }, // Initial message from the current user
     ]);
     const [inputMessage, setInputMessage] = useState('');
 
-    // Simulated sender (this can be dynamic or come from props)
-    const currentUser = 'You';
+    const currentUser = 'You'; // Simulated sender (this can be dynamic or come from props)
 
-    // Handle sending messages
+    // Function to handle message sending
     const handleSendMessage = async (e: React.FormEvent) => {
-        // e.preventDefault();
-        // if (inputMessage.trim()) {
-        //     setMessages((prev) => [{ sender: currentUser, text: inputMessage }, ...prev]);
-        //     const response = await sendMsgToOpenAI(inputMessage, chatHistory);
-        //     if (response) {
-        //         setMessages((prev) => [{ sender: "gpt", text: response.message }, ...prev]);
-        //         if (response.action === "CONFIRMED") {
-        //             console.log("Finished:", response.userQuery);
-        //         }
-        //     }
-        //     setInputMessage(''); // Clear input field
-        // }
+        e.preventDefault();
+
+        if (inputMessage.trim()) {
+            // Add the user's message to the message history
+            setMessages((prevMessages) => [
+                { sender: currentUser, text: inputMessage },
+                ...prevMessages,
+            ]);
+
+            // Send message to OpenAI
+            await sendMsg(inputMessage);
+
+            // Clear input field after sending
+            setInputMessage('');
+        }
     };
 
-    // Log the message from the location state
+    // Async function to send message to OpenAI
+    const sendMsg = async (msg: string) => {
+        try {
+            const response = await sendMsgToOpenAI(msg);
+            if (response && response.message && response.action !== "CONFIRMED") {
+                // Append GPT's response to the message history
+                setMessages([{ sender: 'gpt', text: response.message }, ...messages,]);
+            }
+        } catch (error) {
+            console.error("Error while sending message to OpenAI:", error);
+        }
+    };
+
     useEffect(() => {
-        // if (message) {
-        //     sendMsgToOpenAI(message, chatHistory).then(response => {
-        //         if (response) {
-        //             setMessages((prev) => [{ sender: "gpt", text: response.message }, ...prev]);
-        //         }
-        //     });
-        // }
-    }, []);
+        if (message) {
+            // Automatically send the initial message from location state
+            sendMsg(message);
+        }
+    }, [message]);
 
-    const MessageBubble = ({ sender, text }: { sender: string; text: string }) => {
-        return (
-            <div
-                className={`p-2 my-2 rounded-lg w-fit max-w-[80%] 
-                    ${sender === currentUser ? 'bg-blue-500 text-white self-end' : 'bg-gray-300 text-black self-start'}`}
-            >
-                <p>{text}</p>
-            </div>
-        );
-    };
+    // Message bubble component
+    const MessageBubble = ({ sender, text }: { sender: string; text: string }) => (
+        <div
+            className={`p-2 my-2 rounded-lg w-fit max-w-[80%] 
+                ${sender === currentUser ? 'bg-blue-500 text-white self-end' : 'bg-gray-300 text-black self-start'}`}
+        >
+            <p>{text}</p>
+        </div>
+    );
 
     return (
         <div className="h-full w-full p-4 bg-gray-100 flex flex-col justify-between">

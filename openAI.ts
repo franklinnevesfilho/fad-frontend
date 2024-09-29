@@ -1,5 +1,5 @@
 import { OpenAI } from "openai";
-import { Prompt } from "./src/assets/prompt.ts";
+import { Prompt } from "./src/assets/prompt";
 import { useState } from "react";
 
 export interface GptResponse {
@@ -19,7 +19,6 @@ export interface GptResponse {
   };
 }
 
-const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
 
 // Define the type for the message parameter
 type Message = {
@@ -35,7 +34,10 @@ export function useChatHistory() {
 }
 
 // Send Message to OpenAI using Chat Completion API
-export async function sendMsgToOpenAI(message: string, chatHistory: Message[]): Promise<GptResponse | undefined> {
+export async function sendMsgToOpenAI(message: string): Promise<GptResponse | undefined> {
+
+  const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+  
   const openai = new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
 
   // Add the current user message
@@ -44,7 +46,6 @@ export async function sendMsgToOpenAI(message: string, chatHistory: Message[]): 
       role: "system",
       content: Prompt,  // Load prompt from the separate file
     },
-    ...chatHistory,
     {
       role: "user",
       content: message,
